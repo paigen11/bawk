@@ -1,0 +1,23 @@
+.post{
+	.post-wrapper{
+	background-color: #f5f8fa;
+	padding: 5px;
+	border-radius: 5px;
+	}
+
+	.avatar{
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	}
+
+	.username{
+		font-size: 18px;
+		margin-left: 10px;
+		font-weight: bold;
+	}
+
+	.glyphicon{
+		margin-left: 40px;
+	}
+}

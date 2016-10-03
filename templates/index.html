@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+	<div class='well well-lg'>This is the main page</div> 
+
+<div class='big-post' ng-repeat='post in posts'>	
+	<div class='post'>
+		<div class='row'>
+			<div class='post-wrapper col-sm-10 col-sm-offset-1'>
+				<div>
+					<img class='avatar' src='/static/images/{$post[0]$}'>
+					<span class='username'>{$post[1]$}</span>
+				</div>	
+				<div class='col-sm-8 col-sm-offset-1'>
+					<p>{$post[2]$}</p>
+				</div>
+				<div class='col-sm-1 col-sm-offset-1'>
+					<span class='glyphicon glyphicon-chevron-up' aria-hidden='true'></span>
+					<h5>Votes: <span>{$post[3]$}</span></h5>
+					<span class='glyphicon glyphicon-chevron-down' aria-hidden='true'></span>
+				</div>
+				<div class='col-sm-10'>
+					<hr>
+					<p>{$post[4]$} * {$post[5]$}</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+{% endblock %}	

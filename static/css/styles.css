@@ -1,4 +1,163 @@
-/* line 1, ../../compass/sass/styles.scss */
+/* line 1, ../../compass/sass/layout/_regi-dropdown.scss */
+.regi-dropdown {
+  min-width: 300px;
+  margin: 0;
+  padding: 20px;
+}
+/* line 5, ../../compass/sass/layout/_regi-dropdown.scss */
+.regi-dropdown .button-holder {
+  padding-top: 10px;
+}
+/* line 8, ../../compass/sass/layout/_regi-dropdown.scss */
+.regi-dropdown .reg-success-wrapper {
+  margin: auto;
+  text-align: center !important;
+  margin-top: 55px;
+}
+
+@-webkit-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 50px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-ms-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 50px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 50px;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 240px;
+  }
+  100% {
+    stroke-dashoffset: 480px;
+  }
+}
+@-ms-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 240px;
+  }
+  100% {
+    stroke-dashoffset: 480px;
+  }
+}
+@keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 240px;
+  }
+  100% {
+    stroke-dashoffset: 480px;
+  }
+}
+/* other styles */
+/* .svg svg {
+    display: none
+}
+ */
+/* line 80, ../../compass/sass/layout/_regi-dropdown.scss */
+.inlinesvg .svg svg {
+  display: inline;
+}
+
+/* .svg img {
+    display: none
+} */
+/* line 88, ../../compass/sass/layout/_regi-dropdown.scss */
+.icon--order-success svg path {
+  -webkit-animation: checkmark 0.25s ease-in-out 0.7s backwards;
+  animation: checkmark 0.25s ease-in-out 0.7s backwards;
+}
+
+/* line 93, ../../compass/sass/layout/_regi-dropdown.scss */
+.icon--order-success svg circle {
+  -webkit-animation: checkmark-circle 0.6s ease-in-out backwards;
+  animation: checkmark-circle 0.6s ease-in-out backwards;
+}
+
+/* line 1, ../../../compass/sass/layout/login_dropdown.scss */
+/* line 2, ../../compass/sass/layout/_login-dropdown.scss */
+.login-dropdown {
+  min-width: 300px;
+  margin: 0;
+  padding: 20px;
+}
+
+/* line 5, ../../../compass/sass/layout/login_dropdown.scss */
+/* line 8, ../../compass/sass/layout/_login-dropdown.scss */
+.login-dropdown .button-holder {
+  padding-top: 10px;
+}
+
+/* line 8, ../../../compass/sass/layout/login_dropdown.scss */
+/* line 12, ../../compass/sass/layout/_login-dropdown.scss */
+.login-dropdown .new-here {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* line 11, ../../../compass/sass/layout/login_dropdown.scss */
+/* line 17, ../../compass/sass/layout/_login-dropdown.scss */
+.login-dropdown .new-here p {
+  margin-bottom: 0;
+}
+
+/* line 16, ../../../compass/sass/layout/login_dropdown.scss */
+/* line 21, ../../compass/sass/layout/_login-dropdown.scss */
+.login-dropdown .alert {
+  height: 38px;
+  padding: 9px;
+}
+
+/* line 2, ../../compass/sass/layout/_post.scss */
+.post .post-wrapper {
+  background-color: #f5f8fa;
+  padding: 5px;
+  border-radius: 5px;
+}
+/* line 8, ../../compass/sass/layout/_post.scss */
+.post .avatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+/* line 14, ../../compass/sass/layout/_post.scss */
+.post .username {
+  font-size: 18px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+/* line 20, ../../compass/sass/layout/_post.scss */
+.post .glyphicon {
+  margin-left: 40px;
+}
+
+/* line 5, ../../compass/sass/styles.scss */
 body {
-  background-color: #1d96d7;
+  background-color: #b3d9ff;
+  margin-top: 80px;
+}
+
+/* line 10, ../../compass/sass/styles.scss */
+.navbar-fixed-top {
+  background-color: #ffffff;
+  border-bottom: 1px solid gray;
+}
+/* line 14, ../../compass/sass/styles.scss */
+.navbar-fixed-top .glyphicon {
+  max-width: 40px;
+  margin-top: 16px;
 }

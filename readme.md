@@ -29,3 +29,8 @@ TBD
 ---
 Paige Niedringhaus
 
+##Local Installation Requirements
+---
+`pip install flask flask-mysql bcrypt`
+`python main.py`
+
