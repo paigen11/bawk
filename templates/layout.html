@@ -17,6 +17,7 @@
 	<script src="/static/js/angular-route.min.js"></script>
 	<script src="/static/js/angular-cookies.min.js"></script>
 	<script src='/static/js/mainController.js'></script>
+	<script src='/static/js/scripts.js'></script>
 
 
 </head>
@@ -31,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#/" class="navbar-left"><span class='glyphicon glyphicon-bullhorn' aria-hidden='true'></a><p class="navbar-brand">Bawk!</p>
+            <a href="#/" class="navbar-left"><span class='glyphicon glyphicon-bullhorn' aria-hidden='true'></a><p class="navbar-brand">Wanderlust</p>
         </div>
         <div id="navbar-collapse-1" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -57,6 +58,7 @@
 											
 												<input type="text" ng-model="username" placeholder="enter username" minlength="4" maxlength="50" class="form-control">
 											</div>
+											<p ng-show='usernameTaken'>Sorry that username's taken, try another one</p>
 										</div>
 									</div>
 									
@@ -84,6 +86,15 @@
 											<div class="input-group">
 												<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
 												<input type="email" ng-model="email" placeholder="enter email" minlength="4" maxlength="50" class="form-control">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group col-sm-12">
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-camera"></span></span>
+												<input type="text" ng-model="avatar" placeholder="enter link to your image" minlength="4" maxlength="200" class="form-control">
 											</div>
 										</div>
 									</div>
@@ -124,10 +135,11 @@
 											
 												<input type="text" ng-model="username" placeholder="username" minlength="4" maxlength="50" class="form-control">
 											</div>
+											<p ng-show='noMatch'>Sorry, we don't recognize that username and password, try again or sign up</p>
 										</div>
 									</div>
 									
-									<div ng-show="badUser" class="alert alert-danger" role="alert">Invalid Username</div>
+									
 
 									<div class="row">
 										<div class="form-group col-sm-12">

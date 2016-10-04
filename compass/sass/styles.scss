@@ -1,21 +1,22 @@
 @import "layout/regi-dropdown";
 @import "layout/login-dropdown";
+@import 'layout/follow-list';
 @import 'layout/post';
+
 
 body{
 	background-color: #b3d9ff;
-	margin-top: 80px;
+	margin-top: 60px;
 }
 
 .navbar-fixed-top {
 	background-color: #ffffff;
 	border-bottom: 1px solid gray;
 
-	.glyphicon {
+	.glyphicon-bullhorn {
 		max-width: 40px;
 		margin-top: 16px;
 	}
-
 
 }
 

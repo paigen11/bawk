@@ -122,42 +122,125 @@
   padding: 9px;
 }
 
+/* line 1, ../../compass/sass/layout/_follow-list.scss */
+.follow-list {
+  max-width: 600px;
+  margin: auto;
+  font-size: 18px;
+}
+/* line 8, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+/* line 11, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-title span {
+  font-family: 'Lobster', cursive;
+  font-size: 28px;
+  color: #0dd5b2;
+}
+/* line 19, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user {
+  text-align: center;
+}
+/* line 22, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper:hover > .follow-overlay {
+  display: block;
+}
+/* line 27, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper:hover > .follow-list-avatar {
+  opacity: 0.5;
+}
+/* line 32, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper {
+  position: relative;
+}
+/* line 35, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-list-avatar {
+  width: 120px;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: .3s;
+}
+/* line 42, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-avatar-wrapper .follow-overlay {
+  color: white;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 50px;
+  display: none;
+}
+/* line 56, ../../compass/sass/layout/_follow-list.scss */
+.follow-list .follow-list-user .follow-list-username span {
+  color: #666 !important;
+}
+
 /* line 2, ../../compass/sass/layout/_post.scss */
 .post .post-wrapper {
   background-color: #f5f8fa;
   padding: 5px;
   border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-/* line 8, ../../compass/sass/layout/_post.scss */
+/* line 10, ../../compass/sass/layout/_post.scss */
 .post .avatar {
   border-radius: 50%;
   width: 40px;
   height: 40px;
 }
-/* line 14, ../../compass/sass/layout/_post.scss */
+/* line 16, ../../compass/sass/layout/_post.scss */
 .post .username {
   font-size: 18px;
   margin-left: 10px;
   font-weight: bold;
 }
-/* line 20, ../../compass/sass/layout/_post.scss */
+/* line 22, ../../compass/sass/layout/_post.scss */
 .post .glyphicon {
   margin-left: 40px;
 }
-
-/* line 5, ../../compass/sass/styles.scss */
-body {
-  background-color: #b3d9ff;
-  margin-top: 80px;
+/* line 26, ../../compass/sass/layout/_post.scss */
+.post .text-area {
+  padding-top: 10px;
+}
+/* line 28, ../../compass/sass/layout/_post.scss */
+.post .text-area .text {
+  border: lightgrey 1px solid;
+  background-color: #f5f8fa;
+  border-radius: 5px;
+  padding-top: 5px;
+}
+/* line 36, ../../compass/sass/layout/_post.scss */
+.post .new-post input {
+  border: none;
+  border-radius: 5px;
+  background-color: #8c8c8c;
+  color: #4ddbff;
+  font-size: 18px;
+  float: right;
+  margin-bottom: 10px;
+}
+/* line 46, ../../compass/sass/layout/_post.scss */
+.post .prompt {
+  font-size: 24px;
 }
 
-/* line 10, ../../compass/sass/styles.scss */
+/* line 7, ../../compass/sass/styles.scss */
+body {
+  background-color: #b3d9ff;
+  margin-top: 60px;
+}
+
+/* line 12, ../../compass/sass/styles.scss */
 .navbar-fixed-top {
   background-color: #ffffff;
   border-bottom: 1px solid gray;
 }
-/* line 14, ../../compass/sass/styles.scss */
-.navbar-fixed-top .glyphicon {
+/* line 16, ../../compass/sass/styles.scss */
+.navbar-fixed-top .glyphicon-bullhorn {
   max-width: 40px;
   margin-top: 16px;
 }

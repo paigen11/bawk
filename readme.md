@@ -9,6 +9,7 @@ This is a simple Yik Yak/Twitter type clone. The app allows the user to register
   * HTML5
   * CSS3
   * Bootstrap
+  * AngularJS
   * JavaScript
   * AJAX
   * Compass/Sass
@@ -23,7 +24,7 @@ TBD
 
 ##Github Link
 ---
-TBD
+[Github](https://github.com/paigen11/bawk)
 
 ##Authors
 ---
