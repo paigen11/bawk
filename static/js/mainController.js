@@ -19,11 +19,9 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 			username: $scope.username
 		}).then(function successCallback(response){
 			$scope.posts = response.data;
-
 		})
 		console.log($scope.username)
 		$http.post('http://localhost:5000/get_trending_users',{
-
 			username: $scope.username
 		}).then(function successCallback(response){
 			$scope.users = response.data;
