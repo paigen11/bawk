@@ -131,7 +131,7 @@ def process_vote():
 		cursor.execute(insert_user_vote_query)
 		conn.commit()
 
-		update_vote_query = "UPDATE bawks SET bawks.total_votes = votes.vote_type WHERE bawks.id = '%s'" % (pid)
+		update_vote_query = "UPDATE bawks, votes SET bawks.total_votes = votes.vote_type WHERE bawks.id = '%s'" % (pid)
 		cursor.execute(update_vote_query)
 		conn.commit()
 
