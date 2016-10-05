@@ -97,7 +97,7 @@ def get_posts():
 	cursor.execute(get_user_id_query)
 	get_user_id_result = cursor.fetchone()
 
-	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id" % get_user_id_result
+	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id" % get_user_id_result
 	cursor.execute(get_posts_query)
 
 	get_post_result = cursor.fetchall()	
@@ -105,21 +105,44 @@ def get_posts():
 	if get_post_result is not None:
 		return jsonify(get_post_result)
 
-# @app.route('/process_vote', methods=['POST'])
-# def process_vote():
-# 	data = request.get_json()
-# 	pid = data['pid']
-# 	vote_type = data['vote_type']
-# 	check_user_votes_query = "SELECT * FROM votes INNER JOIN user user.id = votes.uid WHERE user.username = '%s' AND votes.pid = '%s'" % (username, pid)
-# 	cursor.execute(check_user_votes_query)
-# 	check_user_votes_result = cursor.fetchone()
+@app.route('/process_vote', methods=['POST'])
+def process_vote():
+	data = request.get_json()
+	pid = data['vid']
+	vote_type = data['voteType']
+	username = data['username']
+	print pid
+	print vote_type
+	print username
 
-# 	# it's possible we get none back because the user hasn't voted on this post
-# 	if check_user_votes_result is None:
-# 		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES ('%s', '%s', '%s')" %(pid,uid, vote_type)
-# 		cursor.execute()
+	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
+	cursor.execute(get_user_id_query)
+	get_user_id_result = cursor.fetchone()
+	print get_user_id_result[0]
 
-# 	return jsonify(request.form['vid'])
+	check_user_votes_query = "SELECT * FROM votes INNER JOIN user ON user.id = votes.uid WHERE user.username = '%s' AND votes.pid = '%s'" % (username, pid)
+	cursor.execute(check_user_votes_query)
+	check_user_votes_result = cursor.fetchone()
+	print check_user_votes_result
+
+	# it's possible we get none back because the user hasn't voted on this post
+	if check_user_votes_result is None:
+		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES ('%s', '%s', '%s')" %(pid,get_user_id_result[0], vote_type)
+		cursor.execute(insert_user_vote_query)
+		conn.commit()
+
+		update_vote_query = "UPDATE bawks SET bawks.total_votes = votes.vote_type WHERE bawks.id = '%s'" % (pid)
+		cursor.execute(update_vote_query)
+		conn.commit()
+
+		get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id" % get_user_id_result
+		cursor.execute(get_posts_query)
+		get_post_result = cursor.fetchall()	
+		conn.commit()
+		if get_post_result is not None:
+			return jsonify(get_post_result)
+
+	return jsonify('voteCounted')
 
 @app.route('/get_trending_users', methods=['POST'])
 def get_trending_users():

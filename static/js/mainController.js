@@ -10,6 +10,8 @@ bawkApp.config(function($locationProvider) {
     });
 });
 
+// add in base url for localhost path
+
 bawkApp.controller('mainController', function($scope, $http, $location, $cookies){
 
 	checkUsername()
@@ -59,6 +61,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$cookies.put('username', $scope.username);
 				$scope.avatar = response.data;
 				$cookies.put('avatar', $scope.avatar);
+
 			}
 			else if(response.data == 'no match'){
 				$scope.loggedIn = false;
@@ -110,14 +113,23 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		})
 	}
 
-	// $scope.vote = function(){
-	// 	$http.post('http://localhost:5000/process_vote', {
-	// 		username: $scope.username,
+	$scope.vote = function(vid, voteType){
+		// console.log(vid);
+		if(voteType == true){
+			var voteType = 1;
+		}else if(voteType == false){
+			var voteType = -1;
+		}
+		$http.post('http://localhost:5000/process_vote', {
+			vid: vid,
+			voteType: voteType,
+			username: $scope.username
+		}).then(function successCallback(response){
+			$scope.posts = response.data;
+			console.log(response.data);
+		})
 
-
-	// 	})
-	// 	console.log('voted');
-	// }
+	}
 
 	// function to check if user's been to site before and log them back in when they return
 	function checkUsername(){
