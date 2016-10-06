@@ -111,27 +111,34 @@ def process_vote():
 	pid = data['vid']
 	vote_type = data['voteType']
 	username = data['username']
-	print pid
-	print vote_type
-	print username
+	# print "pid " + str(pid)
+	# print "vote type " + str(vote_type)
+	# print 'username ' + str(username)
 
 	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
 	cursor.execute(get_user_id_query)
 	get_user_id_result = cursor.fetchone()
-	print get_user_id_result[0]
+	# print 'user id query ' + str(get_user_id_result[0])
 
 	check_user_votes_query = "SELECT * FROM votes INNER JOIN user ON user.id = votes.uid WHERE user.username = '%s' AND votes.pid = '%s'" % (username, pid)
 	cursor.execute(check_user_votes_query)
 	check_user_votes_result = cursor.fetchone()
-	print check_user_votes_result
+	# print 'user vote result ' + str(check_user_votes_result)
 
 	# it's possible we get none back because the user hasn't voted on this post
 	if check_user_votes_result is None:
+		# print "I am here"
 		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES ('%s', '%s', '%s')" %(pid,get_user_id_result[0], vote_type)
 		cursor.execute(insert_user_vote_query)
 		conn.commit()
 
-		update_vote_query = "UPDATE bawks, votes SET bawks.total_votes = votes.vote_type WHERE bawks.id = '%s'" % (pid)
+		update_post_votes = "SELECT SUM(vote_type) AS user_votes FROM votes WHERE pid = '%s'" %(pid)
+		cursor.execute(update_post_votes)
+		post_vote = cursor.fetchone()
+		conn.commit()
+		# print post_vote[0]
+
+		update_vote_query = "UPDATE bawks SET bawks.total_votes = %s WHERE bawks.id = %s" % (post_vote[0], pid)
 		cursor.execute(update_vote_query)
 		conn.commit()
 
@@ -139,10 +146,14 @@ def process_vote():
 		cursor.execute(get_posts_query)
 		get_post_result = cursor.fetchall()	
 		conn.commit()
-		if get_post_result is not None:
+		print get_post_result
+		if get_post_result:
+			
 			return jsonify(get_post_result)
 
-	return jsonify('voteCounted')
+		# return jsonify('voteCounted')
+	else:
+		return jsonify('alreadyVoted')	
 
 @app.route('/get_trending_users', methods=['POST'])
 def get_trending_users():

@@ -125,8 +125,10 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 			voteType: voteType,
 			username: $scope.username
 		}).then(function successCallback(response){
-			$scope.posts = response.data;
-			console.log(response.data);
+			if(response.data){
+				$scope.posts = response.data;
+				console.log(response.data);
+			}
 		})
 
 	}
