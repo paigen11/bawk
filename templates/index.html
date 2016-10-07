@@ -11,6 +11,9 @@
 	<div class='about col-sm-10 col-sm-offset-1'>
 		<h3>Everyone has places they want to travel to, tell us where you want to go someday? Where's your wanderlust? Sign up or log in to share your dream travels.</h3>
 	</div>
+	<div class='col-sm-10 col-sm-offset-1'>
+		<h3 ng-hide="signIn">Welcome to Wanderlust! Please sign up or log in to share your dreams.</h3>
+	</div>
 </div>
 
 <div class="follow-list">
@@ -66,13 +69,10 @@
 				<div class='col-sm-8 col-sm-offset-1'>
 					<p>{$post[2]$}</p>
 				</div>
-				<!-- <div class='col-sm-8 col-sm-offset-1'>
-					<p ng-show='alreadyVoted'>You already voted on this one! No double voting.</p>
-				</div>
- -->				<div class='col-sm-1 col-sm-offset-1'>
-					<div class='vote-up' ng-click='vote(post[7], true)'><span class='glyphicon glyphicon-chevron-up' post-id='{$ post[7] $}' aria-hidden='true'></span></div>
+					<div class='col-sm-1 col-sm-offset-1'>
+					<div class='vote-up' ng-click='vote( post[7], true)'><span class='glyphicon glyphicon-chevron-up' post-id='{$ post[7] $}' aria-hidden='true'></span></div>
 					<h5>Votes: <span>{$post[3]$}</span></h5>
-					<div class='vote-down' ng-click='vote(post[7], false)'><span post-id='{$ post[7] $}' class='glyphicon glyphicon-chevron-down vote' aria-hidden='true'></span></div>
+					<div class='vote-down' ng-click='vote( post[7], false)'><span post-id='{$ post[7] $}' class='glyphicon glyphicon-chevron-down vote' aria-hidden='true'></span></div>
 				</div>
 				<div class='col-sm-10'>
 					<hr>

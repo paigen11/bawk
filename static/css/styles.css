@@ -248,8 +248,13 @@ body {
   max-width: 40px;
   margin-top: 16px;
 }
+/* line 22, ../../compass/sass/styles.scss */
+.navbar-fixed-top li.message {
+  color: red;
+  line-height: 50px;
+}
 
-/* line 24, ../../compass/sass/styles.scss */
+/* line 29, ../../compass/sass/styles.scss */
 .about {
   font-family: 'Indie Flower', cursive;
 }

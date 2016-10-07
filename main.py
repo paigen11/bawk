@@ -61,21 +61,21 @@ def login_submit():
 	check_avatar_query = "SELECT avatar FROM user WHERE username = '%s'" % username
 	cursor.execute(check_avatar_query)
 	check_avatar_result = cursor.fetchone()
+	print check_avatar_result
 
 	# to check a hash against english:
+	if check_avatar_result == None:
+		return jsonify('noMatch')
+
 	if bcrypt.hashpw(password.encode('utf-8'), check_password_result[0].encode('utf-8')) == check_password_result[0].encode('utf-8'):
 		#we have a match
 		return jsonify(check_avatar_result[0])
-
-	else:
-		print "No match, try again"	
-		return 'no match'
 
 @app.route('/post_submit', methods=['POST'])
 def post_submit():
 	data = request.get_json()
 	username = data['username']
-	content = data['content']
+	content = data["content"]
 	
 	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
 	cursor.execute(get_user_id_query)
@@ -87,9 +87,18 @@ def post_submit():
 	return render_template('index.html')
 
 
+@app.route('/all_posts', methods=['POST'])
+def all_posts():
+	get_all_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location FROM bawks INNER JOIN user ON user.id = bawks.user_id ORDER BY time ASC"
+	cursor.execute(get_all_posts_query)	
+	get_all_post_result = cursor.fetchall()	
+	conn.commit()
+	# print get_all_post_result
+	return jsonify(get_all_post_result)
+
+
 @app.route('/get_posts', methods=['POST'])
 def get_posts():
-	# get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location FROM bawks INNER JOIN user ON user_id = user.id"
 	data = request.get_json()
 	username = data['username']
 	
@@ -97,7 +106,8 @@ def get_posts():
 	cursor.execute(get_user_id_query)
 	get_user_id_result = cursor.fetchone()
 
-	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id" % get_user_id_result
+	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0], get_user_id_result[0]) 
+	
 	cursor.execute(get_posts_query)
 
 	get_post_result = cursor.fetchall()	
@@ -111,19 +121,14 @@ def process_vote():
 	pid = data['vid']
 	vote_type = data['voteType']
 	username = data['username']
-	# print "pid " + str(pid)
-	# print "vote type " + str(vote_type)
-	# print 'username ' + str(username)
 
 	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
 	cursor.execute(get_user_id_query)
 	get_user_id_result = cursor.fetchone()
-	# print 'user id query ' + str(get_user_id_result[0])
 
 	check_user_votes_query = "SELECT * FROM votes INNER JOIN user ON user.id = votes.uid WHERE user.username = '%s' AND votes.pid = '%s'" % (username, pid)
 	cursor.execute(check_user_votes_query)
 	check_user_votes_result = cursor.fetchone()
-	# print 'user vote result ' + str(check_user_votes_result)
 
 	# it's possible we get none back because the user hasn't voted on this post
 	if check_user_votes_result is None:
@@ -136,7 +141,6 @@ def process_vote():
 		cursor.execute(update_post_votes)
 		post_vote = cursor.fetchone()
 		conn.commit()
-		# print post_vote[0]
 
 		update_vote_query = "UPDATE bawks SET bawks.total_votes = %s WHERE bawks.id = %s" % (post_vote[0], pid)
 		cursor.execute(update_vote_query)
@@ -146,13 +150,11 @@ def process_vote():
 		cursor.execute(get_posts_query)
 		get_post_result = cursor.fetchall()	
 		conn.commit()
-		print get_post_result
 		if get_post_result:
-			
+			print 'voteCounted'
 			return jsonify(get_post_result)
-
-		# return jsonify('voteCounted')
 	else:
+		print 'alreadyVoted'
 		return jsonify('alreadyVoted')	
 
 @app.route('/get_trending_users', methods=['POST'])
