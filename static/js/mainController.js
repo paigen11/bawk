@@ -12,7 +12,7 @@ bawkApp.config(function($locationProvider) {
 
 var path = 'http://localhost:5000/'
 
-bawkApp.controller('mainController', function($scope, $http, $location, $cookies, $timeout){
+bawkApp.controller('mainController', function($scope, $http, $location, $cookies, $timeout, $route){
 
 	checkUsername()
 
@@ -49,6 +49,20 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$scope.loggedIn = true;
 				$cookies.put('username', $scope.username);
 				$cookies.put('avatar', $scope.avatar);
+				if($cookies.get('username')){
+					$http.post(path + 'get_posts', {
+						username: $scope.username
+					}).then(function successCallback(response){
+						$scope.posts = response.data;
+						// console.log(response.data);
+					})
+						$http.post(path + 'get_trending_users',{
+						username: $scope.username
+					}).then(function successCallback(response){
+						$scope.users = response.data;
+						// console.log(response.data);
+					})
+				}	
 			}
 			else if(response.data == 'username taken'){
 				$scope.loggedIn = false;
@@ -73,6 +87,29 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$scope.avatar = response.data;
 				console.log(response.data)
 				$cookies.put('avatar', $scope.avatar);
+				$scope.signIn = true;
+				$route.reload();
+				if($cookies.get('username')){
+					$http.post(path + 'get_posts', {
+						username: $scope.username
+					}).then(function successCallback(response){
+						$scope.posts = response.data;
+						// console.log(response.data);
+					})
+						$http.post(path + 'get_trending_users',{
+						username: $scope.username
+					}).then(function successCallback(response){
+						$scope.users = response.data;
+						// console.log(response.data);
+					})
+				}
+				
+				if($location.path() == '/'){
+					$http.post(path + 'all_posts', {
+					}).then(function successCallback(response){
+				$scope.posts = response.data;
+				})
+			}
 		}
 	})
 }		
@@ -81,7 +118,18 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 	$scope.logout = function(){
 		$cookies.remove('username');
 		$cookies.remove('avatar');
+		$scope.username = '';
+		$scope.avatar = '';
 		$scope.loggedIn = false;
+		$route.reload();
+		checkUsername();
+		if($location.path() == '/'){
+			$http.post(path + 'all_posts', {
+			}).then(function successCallback(response){
+				$scope.posts = response.data;
+			})
+		}	
+		console.log('reload successful')
 	};
 
 	//add post content to database and update the feed
