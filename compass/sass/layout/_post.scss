@@ -7,6 +7,12 @@
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+		.content p{
+			font-size: 20px;
+		}
+		p.votes{
+			font-size: 20px;
+		}
 	}
 
 	.avatar{
@@ -21,10 +27,6 @@
 		font-weight: bold;
 	}
 
-	.glyphicon{
-		margin-left: 40px;
-	}
-
 	.text-area{
 		padding-top: 10px;
 		.text{
@@ -32,6 +34,7 @@
 	    	background-color: #f5f8fa;
 	    	border-radius: 5px;
 	    	padding-top: 5px;
+	    	font-size: 20px;
 		}
 	}		
 

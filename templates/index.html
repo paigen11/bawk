@@ -18,11 +18,11 @@
 
 <div class="follow-list">
         <div class="follow-list-title row">
-            <span ng-hide='everyoneFollowed'>Trending Users</span>
+            <span ng-show='signIn'>Trending Users</span>
             <p ng-show='everyoneFollowed'>You're following everyone!</p>
         </div>
         <div class="row">
-            <div class="follow-list-user col-sm-4" ng-repeat='user in users | limitTo: 3 track by $index'>
+            <div ng-show='signIn' class="follow-list-user col-sm-4" ng-repeat='user in users | limitTo: 3 track by $index'>
                 <a href="">
                     <div class="follow-list-avatar-wrapper row" ng-click='followUser(user[0], $index)'>
                         <img class="follow-list-avatar" src="{$ user[1] $}">
@@ -66,12 +66,12 @@
 					<img class='avatar' src='{$post[0]$}'>
 					<span class='username'>{$post[1]$}</span>
 				</div>	
-				<div class='col-sm-8 col-sm-offset-1'>
+				<div class='col-sm-8 col-sm-offset-1 content'>
 					<p>{$post[2]$}</p>
 				</div>
 					<div class='col-sm-1 col-sm-offset-1'>
 					<div class='vote-up' ng-click='vote( post[7], true)'><span class='glyphicon glyphicon-chevron-up' post-id='{$ post[7] $}' aria-hidden='true'></span></div>
-					<h5>Votes: <span>{$post[3]$}</span></h5>
+					<p class='votes'><span>{$post[3]$}</span></p>
 					<div class='vote-down' ng-click='vote( post[7], false)'><span post-id='{$ post[7] $}' class='glyphicon glyphicon-chevron-down vote' aria-hidden='true'></span></div>
 				</div>
 				<div class='col-sm-10'>

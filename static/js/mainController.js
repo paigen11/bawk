@@ -56,7 +56,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 						$scope.posts = response.data;
 						// console.log(response.data);
 					})
-						$http.post(path + 'get_trending_users',{
+					$http.post(path + 'get_trending_users',{
 						username: $scope.username
 					}).then(function successCallback(response){
 						$scope.users = response.data;
@@ -85,10 +85,10 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$scope.loggedIn = true;
 				$cookies.put('username', $scope.username);
 				$scope.avatar = response.data;
-				console.log(response.data)
+				// console.log(response.data)
 				$cookies.put('avatar', $scope.avatar);
 				$scope.signIn = true;
-				$route.reload();
+				
 				if($cookies.get('username')){
 					$http.post(path + 'get_posts', {
 						username: $scope.username
@@ -96,23 +96,23 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 						$scope.posts = response.data;
 						// console.log(response.data);
 					})
-						$http.post(path + 'get_trending_users',{
+					$http.post(path + 'get_trending_users',{
 						username: $scope.username
 					}).then(function successCallback(response){
 						$scope.users = response.data;
 						// console.log(response.data);
 					})
+					$route.reload();
 				}
-				
-				if($location.path() == '/'){
-					$http.post(path + 'all_posts', {
-					}).then(function successCallback(response){
-				$scope.posts = response.data;
-				})
+				// else if($location.path() == '/'){
+				// 	$http.post(path + 'all_posts', {
+				// 	}).then(function successCallback(response){
+				// 	    $scope.posts = response.data;
+				// 	})
+				// }
 			}
-		}
-	})
-}		
+		})
+	}		
 
 	//logout function
 	$scope.logout = function(){
@@ -121,15 +121,16 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		$scope.username = '';
 		$scope.avatar = '';
 		$scope.loggedIn = false;
-		$route.reload();
+		$scope.everyoneFollowed = false;
 		checkUsername();
 		if($location.path() == '/'){
 			$http.post(path + 'all_posts', {
 			}).then(function successCallback(response){
 				$scope.posts = response.data;
 			})
+			$route.reload();
 		}	
-		console.log('reload successful')
+		// console.log('reload successful')
 	};
 
 	//add post content to database and update the feed
@@ -151,7 +152,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				.then(function(response) {
 				console.log("post saved");
 				if($location.path() == '/'){
-					$http.post(path+ 'get_posts', submitPost)
+					$http.post(path + 'get_posts', submitPost)
 					.then(function successCallback(response){
 						$scope.posts = response.data;
 					})
@@ -176,6 +177,19 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 			username: $scope.username,
 			following_id: id
 		})
+		if($cookies.get('username')){
+			$http.post(path + 'get_posts', {
+				username: $scope.username
+			}).then(function successCallback(response){
+				$scope.posts = response.data;
+				// console.log(response.data);
+			})
+			
+			$route.reload();
+		}
+
+		// $route.reload();
+		console.log('route reload')
 	}
 
 	$scope.vote = function(vid, voteType){

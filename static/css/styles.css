@@ -189,34 +189,39 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 12, ../../compass/sass/layout/_post.scss */
+/* line 10, ../../compass/sass/layout/_post.scss */
+.post .post-wrapper .content p {
+  font-size: 20px;
+}
+/* line 13, ../../compass/sass/layout/_post.scss */
+.post .post-wrapper p.votes {
+  font-size: 20px;
+}
+/* line 18, ../../compass/sass/layout/_post.scss */
 .post .avatar {
   border-radius: 50%;
   width: 40px;
   height: 40px;
 }
-/* line 18, ../../compass/sass/layout/_post.scss */
+/* line 24, ../../compass/sass/layout/_post.scss */
 .post .username {
   font-size: 18px;
   margin-left: 10px;
   font-weight: bold;
 }
-/* line 24, ../../compass/sass/layout/_post.scss */
-.post .glyphicon {
-  margin-left: 40px;
-}
-/* line 28, ../../compass/sass/layout/_post.scss */
+/* line 30, ../../compass/sass/layout/_post.scss */
 .post .text-area {
   padding-top: 10px;
 }
-/* line 30, ../../compass/sass/layout/_post.scss */
+/* line 32, ../../compass/sass/layout/_post.scss */
 .post .text-area .text {
   border: lightgrey 1px solid;
   background-color: #f5f8fa;
   border-radius: 5px;
   padding-top: 5px;
+  font-size: 20px;
 }
-/* line 38, ../../compass/sass/layout/_post.scss */
+/* line 41, ../../compass/sass/layout/_post.scss */
 .post .new-post input {
   border: none;
   border-radius: 5px;
@@ -226,7 +231,7 @@
   float: right;
   margin-bottom: 10px;
 }
-/* line 48, ../../compass/sass/layout/_post.scss */
+/* line 51, ../../compass/sass/layout/_post.scss */
 .post .prompt {
   font-size: 24px;
 }

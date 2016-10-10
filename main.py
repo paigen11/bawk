@@ -162,10 +162,15 @@ def get_trending_users():
 	data = request.get_json()
 	username = data['username']
 
-	get_trending_query = "SELECT id, avatar, username FROM user WHERE username != '%s'" % username
+	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
+	cursor.execute(get_user_id_query)
+	get_user_id_result = cursor.fetchone()
+
+	get_trending_query = "SELECT user.id, avatar, username FROM user LEFT JOIN follow on following_id = user.id WHERE follow.following_id NOT IN (SELECT following_id from follow where follower_id = {0}) AND following_id != {0} GROUP BY user.id, avatar, username".format(get_user_id_result[0])
 	cursor.execute(get_trending_query)
 	trending_users_result = cursor.fetchall()
 
+	print trending_users_result
 	return jsonify(trending_users_result)
 
 @app.route('/follow', methods=['POST'])
