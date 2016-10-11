@@ -53,6 +53,8 @@ def login_submit():
 	data = request.get_json()
 	username = data['username'] 
 	password = data['password']
+	session['username'] = username
+	# print session['username']
 
 	check_password_query = "SELECT password, id FROM user where username = '%s'" % username
 	cursor.execute(check_password_query)
@@ -61,7 +63,7 @@ def login_submit():
 	check_avatar_query = "SELECT avatar FROM user WHERE username = '%s'" % username
 	cursor.execute(check_avatar_query)
 	check_avatar_result = cursor.fetchone()
-	print check_avatar_result
+	# print check_avatar_result
 
 	# to check a hash against english:
 	if check_avatar_result == None:
@@ -95,6 +97,31 @@ def all_posts():
 	conn.commit()
 	# print get_all_post_result
 	return jsonify(get_all_post_result)
+
+@app.route('/profile', methods=['GET','POST'])
+def profile_page():
+	if request.method == 'GET':
+		if session['username']: 
+			return render_template('/profile.html')
+
+	elif request.method == 'POST':
+		data = request.get_json()
+		username = data['username']
+		print username
+
+		get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
+		cursor.execute(get_user_id_query)
+		get_user_id_result = cursor.fetchone()
+
+		get_user_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location FROM bawks INNER JOIN user ON user.id = bawks.user_id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0])
+
+		cursor.execute(get_user_posts_query)
+		get_post_result = cursor.fetchall()
+		# print get_post_result	
+		conn.commit()
+
+		if get_post_result is not None:
+			return jsonify(get_post_result)
 
 
 @app.route('/get_posts', methods=['POST'])
@@ -146,7 +173,8 @@ def process_vote():
 		cursor.execute(update_vote_query)
 		conn.commit()
 
-		get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id" % get_user_id_result
+		get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0], get_user_id_result[0]) 
+
 		cursor.execute(get_posts_query)
 		get_post_result = cursor.fetchall()	
 		conn.commit()
@@ -170,7 +198,7 @@ def get_trending_users():
 	cursor.execute(get_trending_query)
 	trending_users_result = cursor.fetchall()
 
-	print trending_users_result
+	# print trending_users_result
 	return jsonify(trending_users_result)
 
 @app.route('/follow', methods=['POST'])

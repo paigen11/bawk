@@ -37,6 +37,26 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		}	
 	}
 
+	
+	if($location.path() == '/profile'){
+		$http.post(path + 'profile', {
+			username: $scope.username
+		}).then(function successCallback(response){
+			$scope.posts = response.data;
+			$scope.profilePage = true;
+		})
+	}
+
+	// reloads the page so the user sees the new location page
+	$scope.profile = function(){
+		location.reload();
+	}
+
+	// reloads the page so the user sees the home page again
+	$scope.home = function(){
+		location.reload();
+	}
+
 	// function to create profile for site
 	$scope.register = function(){
 		$http.post(path + 'register_submit', {
@@ -54,13 +74,11 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 						username: $scope.username
 					}).then(function successCallback(response){
 						$scope.posts = response.data;
-						// console.log(response.data);
 					})
 					$http.post(path + 'get_trending_users',{
 						username: $scope.username
 					}).then(function successCallback(response){
 						$scope.users = response.data;
-						// console.log(response.data);
 					})
 				}	
 			}
@@ -85,7 +103,6 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				$scope.loggedIn = true;
 				$cookies.put('username', $scope.username);
 				$scope.avatar = response.data;
-				// console.log(response.data)
 				$cookies.put('avatar', $scope.avatar);
 				$scope.signIn = true;
 				
@@ -104,15 +121,9 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 					})
 					$route.reload();
 				}
-				// else if($location.path() == '/'){
-				// 	$http.post(path + 'all_posts', {
-				// 	}).then(function successCallback(response){
-				// 	    $scope.posts = response.data;
-				// 	})
-				// }
 			}
 		})
-	}		
+	}	
 
 	//logout function
 	$scope.logout = function(){
@@ -161,6 +172,7 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		}		
 	}
 
+
 	$scope.follow = function(){
 		$http.post(path + 'follow', {
 			username: $scope.username
@@ -172,7 +184,6 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 		if($scope.users.length == 0){
 			$scope.everyoneFollowed = true;
 		}
-
 		$http.post(path + 'follow', {
 			username: $scope.username,
 			following_id: id
@@ -182,39 +193,43 @@ bawkApp.controller('mainController', function($scope, $http, $location, $cookies
 				username: $scope.username
 			}).then(function successCallback(response){
 				$scope.posts = response.data;
-				// console.log(response.data);
 			})
-			
 			$route.reload();
 		}
-
-		// $route.reload();
-		console.log('route reload')
+		// console.log('route reload')
 	}
 
 	$scope.vote = function(vid, voteType){
-		if(voteType == true){
-			var voteType = 1;
-		}else if(voteType == false){
-			var voteType = -1;
-		}
-		// console.log(vid);
-		$http.post(path + 'process_vote', {
-			vid: vid,
-			voteType: voteType,
-			username: $scope.username
-		}).then(function successCallback(response){
-			if(response.data == 'alreadyVoted'){
-				$scope.alreadyVoted = true;
-				$timeout(function(){
-					$scope.alreadyVoted = false;
-				}, 1500);
-				console.log('alreadyVoted')
+		if ($cookies.get('username') == undefined){
+			$scope.noVote = true;
+			$timeout(function(){
+				$scope.noVote = false;
+			}, 1500);
+			console.log('logInToVote')
+		}else if($cookies.get('username')){
+			if(voteType == true){
+				var voteType = 1;
+			}else if(voteType == false){
+				var voteType = -1;
 			}
-			else if(response.data){
-				$scope.posts = response.data;
-			}
-		})
+			$http.post(path + 'process_vote', {
+				vid: vid,
+				voteType: voteType,
+				username: $scope.username
+			}).then(function successCallback(response){
+				if(response.data == 'alreadyVoted'){
+					$scope.alreadyVoted = true;
+					$timeout(function(){
+						$scope.alreadyVoted = false;
+					}, 1500);
+					console.log('alreadyVoted')
+				}
+				else if(response.data){
+					$scope.posts = response.data;
+					console.log(response.data);
+				}
+			})
+		}		
 	}
 
 	// function to check if user's been to site before and log them back in when they return

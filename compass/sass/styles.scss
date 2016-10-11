@@ -2,17 +2,24 @@
 @import "layout/login-dropdown";
 @import 'layout/follow-list';
 @import 'layout/post';
+@import 'layout/profile';
 
 
 body{
 	background-color: #b3d9ff;
 	margin-top: 60px;
 	font-family: 'Rock Salt', cursive;
+		h1{
+			font-size: 30px;
+			text-align: center;
+		}
 }
 
 .navbar-fixed-top {
 	background-color: #ffffff;
 	border-bottom: 1px solid gray;
+	font-family: 'Indie Flower', cursive;
+	font-size: 20px;
 
 	.glyphicon-bullhorn {
 		max-width: 40px;
