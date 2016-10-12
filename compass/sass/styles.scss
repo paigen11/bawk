@@ -21,9 +21,13 @@ body{
 	font-family: 'Indie Flower', cursive;
 	font-size: 20px;
 
-	.glyphicon-bullhorn {
+	p.navbar-brand{
+		font-size: 20px;
+	}
+
+	.glyphicon-picture {
 		max-width: 40px;
-		margin-top: 16px;
+		margin-top: 12px;
 	}
 
 	li.message {
@@ -35,5 +39,11 @@ body{
 
 .about{
 	font-family: 'Indie Flower', cursive;
+}
+
+.directions p{
+	font-family: 'Indie Flower', cursive;
+	text-align: center;
+	font-size: 18px;
 }
 

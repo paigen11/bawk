@@ -196,24 +196,25 @@
 /* line 13, ../../compass/sass/layout/_post.scss */
 .post .post-wrapper p.votes {
   font-size: 20px;
+  color: #00a3cc;
 }
-/* line 18, ../../compass/sass/layout/_post.scss */
+/* line 19, ../../compass/sass/layout/_post.scss */
 .post .avatar {
   border-radius: 50%;
   width: 40px;
   height: 40px;
 }
-/* line 24, ../../compass/sass/layout/_post.scss */
+/* line 25, ../../compass/sass/layout/_post.scss */
 .post .username {
   font-size: 18px;
   margin-left: 10px;
   font-weight: bold;
 }
-/* line 30, ../../compass/sass/layout/_post.scss */
+/* line 31, ../../compass/sass/layout/_post.scss */
 .post .text-area {
   padding-top: 10px;
 }
-/* line 32, ../../compass/sass/layout/_post.scss */
+/* line 33, ../../compass/sass/layout/_post.scss */
 .post .text-area .text {
   border: lightgrey 1px solid;
   background-color: #f5f8fa;
@@ -221,7 +222,7 @@
   padding-top: 5px;
   font-size: 20px;
 }
-/* line 41, ../../compass/sass/layout/_post.scss */
+/* line 42, ../../compass/sass/layout/_post.scss */
 .post .new-post input {
   border: none;
   border-radius: 5px;
@@ -231,7 +232,7 @@
   float: right;
   margin-bottom: 10px;
 }
-/* line 51, ../../compass/sass/layout/_post.scss */
+/* line 52, ../../compass/sass/layout/_post.scss */
 .post .prompt {
   font-size: 24px;
 }
@@ -319,17 +320,28 @@ body h1 {
   font-size: 20px;
 }
 /* line 24, ../../compass/sass/styles.scss */
-.navbar-fixed-top .glyphicon-bullhorn {
-  max-width: 40px;
-  margin-top: 16px;
+.navbar-fixed-top p.navbar-brand {
+  font-size: 20px;
 }
-/* line 29, ../../compass/sass/styles.scss */
+/* line 28, ../../compass/sass/styles.scss */
+.navbar-fixed-top .glyphicon-picture {
+  max-width: 40px;
+  margin-top: 12px;
+}
+/* line 33, ../../compass/sass/styles.scss */
 .navbar-fixed-top li.message {
   color: red;
   line-height: 50px;
 }
 
-/* line 36, ../../compass/sass/styles.scss */
+/* line 40, ../../compass/sass/styles.scss */
 .about {
   font-family: 'Indie Flower', cursive;
+}
+
+/* line 44, ../../compass/sass/styles.scss */
+.directions p {
+  font-family: 'Indie Flower', cursive;
+  text-align: center;
+  font-size: 18px;
 }
