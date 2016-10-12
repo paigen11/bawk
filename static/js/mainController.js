@@ -10,7 +10,7 @@ bawkApp.config(function($locationProvider) {
     });
 });
 
-var path = 'http://localhost:5000/'
+var path = 'http://paigeniedringhaus:5000/'
 
 bawkApp.controller('mainController', function($scope, $http, $location, $cookies, $timeout, $route){
 
