@@ -1,4 +1,4 @@
-#Bawk (Social Post) App
+#Wanderlust (Social Post) App
 
 ##What is it?
 ---
@@ -33,22 +33,22 @@ Paige Niedringhaus
 ##Screenshots
 ---
 Start screen when new users come to the site for the first time
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/login-screen.png)
 
 New user sign up modal
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/sign-up.png)
 
 Message displaying when username is taken
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/username-taken.png)
 
 Message displaying when username and password don't match
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/user-not-recognized.png)
 
 Logged in view showing users' posts the user is following and more users they can follow
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/logged-in-view.png)
 
 Message that displays after user's already voted on post once
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/already-voted-message.png)
 
 Profile page view the user can navigate to to see only their own posts
 ![alt text](TBD)
@@ -79,7 +79,7 @@ There's a number of requirements to set this up to run like I did. Prepare yours
 
 For the front end of the site, Twitter's [Bootstrap](http://getbootstrap.com/getting-started/) framework was used in conjunction with [AngularJS](https://angularjs.org/), and the Angular modules of [ngCookies and ngRoutes](https://code.angularjs.org/1.5.8/). Since Bootstrap's JavaScript files were employed for site responsiveness, Google's [jQuery](https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js) script is also needed. Styling was done with SASS through [Compass](http://compass.kkbox.com/). This is optional, but it makes the styling process quicker.
 
-For the back end of the site, you'll need to set up a virtual environment, by running `virtualenv newFolder` in the command line to create the environment for your site to live in. Next, run `pip install flask` (for the Flask framework), then `pip install flask-mysql` (for the connection the MySQL database), then `pip install bcrypt` (for the bcrypt password hashing). Finally, when all that's done and the database is created, run `python main.py` in the command line to spin up your Python file, which can then be accessed at localhost:5000 or whatever port you choose. Documentation on working with Flask can be found [here](http://flask.pocoo.org/).
+For the back end of the site, you'll need to set up a virtual environment, by running `virtualenv 'newFolderName'` in the command line to create the environment for your site to live in. Next, run `pip install flask` (for the Flask framework), then `pip install flask-mysql` (for the connection the MySQL database), then `pip install bcrypt` (for the bcrypt password hashing). Finally, when all that's done and the database is created, run `python main.py` in the command line to spin up your Python file, which can then be accessed at localhost:5000 or whatever port you choose. Documentation on working with Flask can be found [here](http://flask.pocoo.org/).
 
 ##Code Examples
 ---
@@ -178,3 +178,10 @@ JavaScript function to check if the username for the site is stored as a cookie 
     }
   }
 ```
+
+##Additional Improvements
+---
+ * Add the ability to unfollow users
+ * Add the ability to filter or sort timelines by upvotes or downvotes instead of just chronologically
+ * Add the ability to see other user's profiles and posts by clicking on them 
+ * Add the ability to search for users or invite them to join Wanderlust
