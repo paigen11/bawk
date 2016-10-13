@@ -51,7 +51,7 @@ Message that displays after user's already voted on post once
 ![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/already-voted-message.png)
 
 Profile page view the user can navigate to to see only their own posts
-![alt text](TBD)
+![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/user-profile.png)
 
 ##Further Info
 ---
@@ -61,11 +61,11 @@ When users first come to the site they see messages from all other users, but wh
 
 When users newly register with the site, their passwords are hashed on the back-end MySQL database through bcrypt and a cookie is dropped on to their local machine so they'll be remembered in the future if they come back without logging out first.
 
-On the front end, the site is built using one AngularJS controller that takes all the data in JSON format, and passes it back to Python on the back end, which translates it through data = request.get_json(). In this way, the data can then be loaded into the MySQL database, which is connected through Flask. 
+On the front end, the site is built using one AngularJS controller that takes all the data in JSON format, and passes it back to Python on the back end, which translates it through `data = request.get_json()`. In this way, the data can then be loaded into the MySQL database, which is connected through Flask. 
 
 Similarly, when that data needs to be recalled from MySQL, queries can be written recalling specific data, which is then delivered through Flask's Jinja Python templating engine to the front-end.
 
-So Angular on the front end keeps things updating in real-time with its lovely ng-repeat methods and Jinja and MySQL on the backend store and deliver the key pieces of data called for by the user.
+So Angular on the front end keeps things updating in real-time with its lovely `ng-repeat` methods and Jinja and MySQL on the backend store and deliver the key pieces of data called for by the user.
 
 Getting Angular to play nice with Flask and Bootstrap was a trial, and more than once, odd Angular-specific bugs were encountered. 
 
