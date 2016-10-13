@@ -123,7 +123,6 @@ def profile_page():
 		if get_post_result is not None:
 			return jsonify(get_post_result)
 
-
 @app.route('/get_posts', methods=['POST'])
 def get_posts():
 	data = request.get_json()
