@@ -12,6 +12,14 @@
 	}
 }
 
+@media screen and (max-width: 375px){
+	.profile{
+		img{
+			margin-left: 15%;
+		}
+	}
+}	
+
 h4{
 	margin-left: 10%;
 }
@@ -56,3 +64,14 @@ h4{
 		}
 	}		
 }
+
+@media screen and (max-width: 375px){
+	.post-wrapper{
+		width: 80%;
+		margin: auto;
+		display: inline-block;
+		.post-stuff{
+			display: inline-block;
+		}
+	}
+}	
