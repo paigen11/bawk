@@ -27,9 +27,9 @@ def register_submit():
 	data = request.get_json()
 	username = data['username']
 	# first check to see if username is already taken. this means a select statement
-	check_username_query = "SELECT * FROM user WHERE username = '%s'" % username
+	check_username_query = "SELECT * FROM user WHERE username = %s"
 	# print check_username_query
-	cursor.execute(check_username_query)
+	cursor.execute(check_username_query, (username))
 	check_username_result = cursor.fetchone()
 	if check_username_result is None:
 		#no match. insert
@@ -38,8 +38,8 @@ def register_submit():
 		hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
 		avatar = data['avatar']
 		# print avatar
-		username_insert_query = "INSERT INTO user (username, password, email, avatar) VALUES ('%s', '%s', '%s', '%s')" % (username, hashed_password, email, avatar)
-		cursor.execute(username_insert_query)
+		username_insert_query = "INSERT INTO user (username, password, email, avatar) VALUES (%s, %s, %s, %s)"
+		cursor.execute(username_insert_query, (username, hashed_password, email, avatar))
 		conn.commit()
 		return "registration successful"
 	else:
@@ -56,12 +56,12 @@ def login_submit():
 	session['username'] = username
 	# print session['username']
 
-	check_password_query = "SELECT password, id FROM user where username = '%s'" % username
-	cursor.execute(check_password_query)
+	check_password_query = "SELECT password, id FROM user where username = %s"
+	cursor.execute(check_password_query, (username))
 	check_password_result = cursor.fetchone()
 
-	check_avatar_query = "SELECT avatar FROM user WHERE username = '%s'" % username
-	cursor.execute(check_avatar_query)
+	check_avatar_query = "SELECT avatar FROM user WHERE username = %s"
+	cursor.execute(check_avatar_query, (username))
 	check_avatar_result = cursor.fetchone()
 	# print check_avatar_result
 
@@ -79,12 +79,12 @@ def post_submit():
 	username = data['username']
 	content = data["content"]
 	
-	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-	cursor.execute(get_user_id_query)
+	get_user_id_query = "SELECT id FROM user WHERE username = %s"
+	cursor.execute(get_user_id_query, (username))
 	get_user_id_result = cursor.fetchone()
 	
-	insert_post_query = "INSERT INTO bawks (content, user_id) VALUES ('%s', '%s')" % (content, get_user_id_result[0])
-	cursor.execute(insert_post_query)
+	insert_post_query = "INSERT INTO bawks (content, user_id) VALUES (%s, %s)"
+	cursor.execute(insert_post_query, (content, get_user_id_result[0]))
 	conn.commit()
 	return render_template('index.html')
 
@@ -109,13 +109,13 @@ def profile_page():
 		username = data['username']
 		print username
 
-		get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-		cursor.execute(get_user_id_query)
+		get_user_id_query = "SELECT id FROM user WHERE username = %s"
+		cursor.execute(get_user_id_query, (username))
 		get_user_id_result = cursor.fetchone()
 
-		get_user_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location FROM bawks INNER JOIN user ON user.id = bawks.user_id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0])
+		get_user_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location FROM bawks INNER JOIN user ON user.id = bawks.user_id WHERE user.id = %s ORDER BY time ASC" 
 
-		cursor.execute(get_user_posts_query)
+		cursor.execute(get_user_posts_query, (get_user_id_result[0]))
 		get_post_result = cursor.fetchall()
 		# print get_post_result	
 		conn.commit()
@@ -128,13 +128,13 @@ def get_posts():
 	data = request.get_json()
 	username = data['username']
 	
-	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-	cursor.execute(get_user_id_query)
+	get_user_id_query = "SELECT id FROM user WHERE username = %s"
+	cursor.execute(get_user_id_query, (username))
 	get_user_id_result = cursor.fetchone()
 
-	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0], get_user_id_result[0]) 
+	get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = %s) GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = %s ORDER BY time ASC" 
 	
-	cursor.execute(get_posts_query)
+	cursor.execute(get_posts_query, (get_user_id_result[0], get_user_id_result[0]))
 
 	get_post_result = cursor.fetchall()	
 	conn.commit()
@@ -148,33 +148,33 @@ def process_vote():
 	vote_type = data['voteType']
 	username = data['username']
 
-	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-	cursor.execute(get_user_id_query)
+	get_user_id_query = "SELECT id FROM user WHERE username = %s"
+	cursor.execute(get_user_id_query, (username))
 	get_user_id_result = cursor.fetchone()
 
-	check_user_votes_query = "SELECT * FROM votes INNER JOIN user ON user.id = votes.uid WHERE user.username = '%s' AND votes.pid = '%s'" % (username, pid)
-	cursor.execute(check_user_votes_query)
+	check_user_votes_query = "SELECT * FROM votes INNER JOIN user ON user.id = votes.uid WHERE user.username = %s AND votes.pid = %s"
+	cursor.execute(check_user_votes_query, (username, pid))
 	check_user_votes_result = cursor.fetchone()
 
 	# it's possible we get none back because the user hasn't voted on this post
 	if check_user_votes_result is None:
 		# print "I am here"
-		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES ('%s', '%s', '%s')" %(pid,get_user_id_result[0], vote_type)
-		cursor.execute(insert_user_vote_query)
+		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES (%s, %s, %s)"
+		cursor.execute(insert_user_vote_query, (pid, get_user_id_result[0], vote_type))
 		conn.commit()
 
-		update_post_votes = "SELECT SUM(vote_type) AS user_votes FROM votes WHERE pid = '%s'" %(pid)
-		cursor.execute(update_post_votes)
+		update_post_votes = "SELECT SUM(vote_type) AS user_votes FROM votes WHERE pid = %s"
+		cursor.execute(update_post_votes, (pid))
 		post_vote = cursor.fetchone()
 		conn.commit()
 
-		update_vote_query = "UPDATE bawks SET bawks.total_votes = %s WHERE bawks.id = %s" % (post_vote[0], pid)
-		cursor.execute(update_vote_query)
+		update_vote_query = "UPDATE bawks SET bawks.total_votes = %s WHERE bawks.id = %s"
+		cursor.execute(update_vote_query, (post_vote[0], pid))
 		conn.commit()
 
-		get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = '%s') GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = '%s' ORDER BY time ASC" % (get_user_id_result[0], get_user_id_result[0]) 
+		get_posts_query = "SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id LEFT JOIN follow on following_id = bawks.user_id WHERE follow.following_id IN (SELECT following_id from follow where follower_id = %s) GROUP BY user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id UNION SELECT user.avatar, user.username, content, total_votes, time, location, user_id, bawks.id FROM bawks LEFT JOIN user ON user_id = user.id WHERE user.id = %s ORDER BY time ASC"  
 
-		cursor.execute(get_posts_query)
+		cursor.execute(get_posts_query, (get_user_id_result[0], get_user_id_result[0]))
 		get_post_result = cursor.fetchall()	
 		conn.commit()
 		if get_post_result:
@@ -189,8 +189,8 @@ def get_trending_users():
 	data = request.get_json()
 	username = data['username']
 
-	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-	cursor.execute(get_user_id_query)
+	get_user_id_query = "SELECT id FROM user WHERE username = %s"
+	cursor.execute(get_user_id_query, (username))
 	get_user_id_result = cursor.fetchone()
 
 	get_trending_query = "SELECT user.id, avatar, username FROM user LEFT JOIN follow on following_id = user.id WHERE follow.following_id NOT IN (SELECT following_id from follow where follower_id = {0}) AND following_id != {0} GROUP BY user.id, avatar, username".format(get_user_id_result[0])
@@ -206,12 +206,12 @@ def follow():
 	username = data['username']
 	following_id = data['following_id']
 
-	get_user_id_query = "SELECT id FROM user WHERE username = '%s'" % username
-	cursor.execute(get_user_id_query)
+	get_user_id_query = "SELECT id FROM user WHERE username = %s"
+	cursor.execute(get_user_id_query, (username))
 	get_user_id_result = cursor.fetchone()
 
-	follow_query = "INSERT INTO follow (follower_id, following_id) VALUE ('%s', '%s')" % (get_user_id_result[0], following_id)
-	cursor.execute(follow_query)
+	follow_query = "INSERT INTO follow (follower_id, following_id) VALUE (%s, %s)" 
+	cursor.execute(follow_query, (get_user_id_result[0], following_id))
 	conn.commit()
 	return "it's working"
 		

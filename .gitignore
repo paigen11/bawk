@@ -4,3 +4,4 @@ bin/*
 lib/*
 .Python
 .DS_Store
+bawk_db_2016-10-12.sql
