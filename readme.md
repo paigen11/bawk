@@ -20,7 +20,7 @@ This is a Yik Yak/Twitter type clone. The app allows the user to register/login 
 
 ##Live Demo Link
 ---
-[Live demo]()
+[Live demo](http://wanderlust.paigeniedringhaus.com/)
 
 ##Github Link
 ---
