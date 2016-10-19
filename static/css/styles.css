@@ -246,14 +246,14 @@
 }
 
 @media screen and (max-width: 375px) {
-  /* line 64, ../../compass/sass/layout/_post.scss */
-  .post-wrapper {
+  /* line 65, ../../compass/sass/layout/_post.scss */
+  .post .post-wrapper {
     width: 80%;
     margin: auto;
     display: inline-block;
   }
-  /* line 68, ../../compass/sass/layout/_post.scss */
-  .post-wrapper .post-stuff {
+  /* line 69, ../../compass/sass/layout/_post.scss */
+  .post .post-wrapper .post-stuff {
     display: inline-block;
   }
 }
@@ -327,14 +327,14 @@ h4 {
 }
 
 @media screen and (max-width: 375px) {
-  /* line 69, ../../compass/sass/layout/_profile.scss */
-  .post-wrapper {
+  /* line 70, ../../compass/sass/layout/_profile.scss */
+  .post .post-wrapper {
     width: 80%;
     margin: auto;
     display: inline-block;
   }
-  /* line 73, ../../compass/sass/layout/_profile.scss */
-  .post-wrapper .post-stuff {
+  /* line 74, ../../compass/sass/layout/_profile.scss */
+  .post .post-wrapper .post-stuff {
     display: inline-block;
   }
 }

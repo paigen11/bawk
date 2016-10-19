@@ -61,12 +61,14 @@
 }
 
 @media screen and (max-width: 375px){
-	.post-wrapper{
-		width: 80%;
-		margin: auto;
-		display: inline-block;
-		.post-stuff{
+	.post{
+		.post-wrapper{
+			width: 80%;
+			margin: auto;
 			display: inline-block;
-		}
+			.post-stuff{
+				display: inline-block;
+			}
+		}	
 	}	
 }
