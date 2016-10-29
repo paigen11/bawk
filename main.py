@@ -54,7 +54,6 @@ def login_submit():
 	username = data['username'] 
 	password = data['password']
 	session['username'] = username
-	# print session['username']
 
 	check_password_query = "SELECT password, id FROM user where username = %s"
 	cursor.execute(check_password_query, (username))
@@ -63,7 +62,6 @@ def login_submit():
 	check_avatar_query = "SELECT avatar FROM user WHERE username = %s"
 	cursor.execute(check_avatar_query, (username))
 	check_avatar_result = cursor.fetchone()
-	# print check_avatar_result
 
 	# to check a hash against english:
 	if check_avatar_result == None:
@@ -158,7 +156,7 @@ def process_vote():
 
 	# it's possible we get none back because the user hasn't voted on this post
 	if check_user_votes_result is None:
-		# print "I am here"
+		
 		insert_user_vote_query = "INSERT INTO votes (pid, uid, vote_type) VALUES (%s, %s, %s)"
 		cursor.execute(insert_user_vote_query, (pid, get_user_id_result[0], vote_type))
 		conn.commit()
@@ -197,7 +195,6 @@ def get_trending_users():
 	cursor.execute(get_trending_query)
 	trending_users_result = cursor.fetchall()
 
-	# print trending_users_result
 	return jsonify(trending_users_result)
 
 @app.route('/follow', methods=['POST'])
