@@ -1,10 +1,10 @@
-#Wanderlust (Social Post) App
+Wanderlust (Social Post) App
 
-##What is it?
+What is it?
 ---
 This is a Yik Yak/Twitter type clone. The app allows the user to register/login and link a jpg image to their user profile, it hashes the password using bcrypt and displays the notes of the user's followers. The user can follow other users, vote on their messages, and view their own profile and tweets in a separate profile page.
 
-##Languages Used
+Languages Used
 ---
   * HTML5
   * CSS3
@@ -18,19 +18,15 @@ This is a Yik Yak/Twitter type clone. The app allows the user to register/login 
   * Jinja
   * MySQL
 
-##Live Demo Link
----
-[Live demo](http://wanderlust.paigeniedringhaus.com/)
-
-##Github Link
+Github Link
 ---
 [Github](https://github.com/paigen11/bawk)
 
-##Authors
+Authors
 ---
 Paige Niedringhaus
 
-##Screenshots
+Screenshots
 ---
 Start screen when new users come to the site for the first time
 ![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/login-screen.png)
@@ -53,7 +49,7 @@ Message that displays after user's already voted on post once
 Profile page view the user can navigate to to see only their own posts
 ![alt text](https://github.com/paigen11/bawk/blob/master/screenshots/user-profile.png)
 
-##Further Info
+Further Info
 ---
 The site is set up on the Twitter Bootstrap framework and styled with SASS through Compass. Each piece of the site (nav bar, login dropdowns, etc.) have their own SCSS files, which are all compiled into the main styles.scss file at the end.
 
@@ -73,7 +69,7 @@ One such bug was getting Angular to reload the page when the user switched from 
 
 Another bug was getting just the message that a user voted on to display a sign telling them they couldn't vote more than once (since the posts were being displayed through ng-repeat, each one would show the message even though the user only voted on one). I got around this by putting the messages up in the navbar on a set timeout, so they'd show for a second then disappear again. This got around the ng-repeat problem.
 
-##Requirements
+Requirements
 ---
 There's a number of requirements to set this up to run like I did. Prepare yourself...
 
@@ -81,7 +77,7 @@ For the front end of the site, Twitter's [Bootstrap](http://getbootstrap.com/get
 
 For the back end of the site, you'll need to set up a virtual environment, by running `virtualenv 'newFolderName'` in the command line to create the environment for your site to live in. Next, run `pip install flask` (for the Flask framework), then `pip install flask-mysql` (for the connection the MySQL database), then `pip install bcrypt` (for the bcrypt password hashing). Finally, when all that's done and the database is created, run `python main.py` in the command line to spin up your Python file, which can then be accessed at localhost:5000 or whatever port you choose. Documentation on working with Flask can be found [here](http://flask.pocoo.org/).
 
-##Code Examples
+Code Examples
 ---
 Python script that runs when a user up or down votes a message, it translates the JSON from Angular to data Python can read, sends it back to the MySQL database. Then if the user hasn't voted on the post, the post count gets updated and it's reflected on the front end and all the posts are reloaded through the get_posts_query. If the user has already voted on the post, a message telling them so is displayed instead.
 
@@ -179,7 +175,7 @@ JavaScript function to check if the username for the site is stored as a cookie 
   }
 ```
 
-##Additional Improvements
+Additional Improvements
 ---
  * Add the ability to unfollow users
  * Add the ability to filter or sort timelines by upvotes or downvotes instead of just chronologically
